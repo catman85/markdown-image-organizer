@@ -9,12 +9,16 @@ let gap = document.querySelector('.g1p5');
 var start = 0;
 var update = 0;
 var array = [];
+var item = {};
 var i;
 
 var handleTextChange = function () { // reads markdown (runs once)
+    console.debug("Detected Text Change...")
+
+    this.cleanDOM(); // refreshes array too...
+    
+
     let lines = $('textarea').val().split('\n');
-    this.array = [];
-    // this.itemCount = lines.length;
 
     for (var i = 0; i < lines.length; i++) {
         let s = lines[i].trim();
@@ -120,11 +124,34 @@ var handleSwap = function (s, u) {
         return;
     }
     console.debug("start: " + s + " to: " + u);
-    console.debug(this.array);
-    // TODO: swap and shift
+    
+    this.rearangeArray();
+
     this.reloadText();
 }
 
-var reloadText = function () {
+var rearangeArray = function () {
+    console.debug("Rearanging Array...")
+    this.item = this.array.splice(this.start,1)[0];
+    this.array.splice(this.update, 0 , this.item);
+    // console.debug("After Rearange: " + this.array);
+}
 
+var reloadText = function () {
+    // console.debug("Reloading Text....");
+    codeText.value = "";
+    // console.debug(this.array);
+    for(el in this.array){
+        // console.debug(this.array[el]);
+        el = this.array[el];
+        let entry = "![" + el.alt + "](" + el.url + " " + el.title + ")\n\n";
+        codeText.value += entry;
+    }
+}
+
+var cleanDOM = function () {
+    this.array = [];
+    while (imageCont.firstChild) {
+        imageCont.removeChild(imageCont.firstChild);
+    }
 }
