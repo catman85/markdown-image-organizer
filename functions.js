@@ -138,7 +138,7 @@ var reloadText = function () {
 
     for (el in this.array) {
         el = this.array[el];
-        let entry = "![" + el.alt + "](" + el.url + " " + el.title + ")\n\n";
+        let entry = "![" + el.alt + "](" + el.url + ' "' + el.title + '")\n\n';
         codeText.value += entry;
     }
 }
