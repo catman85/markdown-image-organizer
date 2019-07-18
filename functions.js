@@ -97,7 +97,7 @@ var addImages = function (data) {
 var addImage = function (imageSrc) {
 
     let col = document.createElement("div");
-    col.classList.add("column", "is-2");
+    col.classList.add("column", "is-one-fifth");
     col.setAttribute("id", i);
 
         let fig = document.createElement("figure");
