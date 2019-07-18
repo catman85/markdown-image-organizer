@@ -16,7 +16,7 @@ var handleTextChange = function () { // reads markdown (runs once)
     console.debug("Detected Text Change...")
 
     this.cleanDOM(); // refreshes array too...
-    
+
 
     let lines = $('textarea').val().split('\n');
 
@@ -47,24 +47,24 @@ var handleTextChange = function () { // reads markdown (runs once)
             url = second;
         }
 
-        // console.debug(second.indexOf(" "));
-
         let title = second.substring(
             second.indexOf('"') + 1,
             second.lastIndexOf('"')
         )
 
-        // console.debug("SECOND: " + second);
         console.debug("ALT: " + alt);
 
         console.debug("URL: " + url)
 
         console.debug("TITLE: " + title);
 
-        // console.debug(lines[i].trim().length);
         console.debug("-----------------")
 
-        let img = { alt , url , title};
+        let img = {
+            alt,
+            url,
+            title
+        };
         this.array.push(img);
     }
 
@@ -100,20 +100,16 @@ var addImage = function (imageSrc) {
     col.classList.add("column", "is-2");
     col.setAttribute("id", i);
 
-    let fig = document.createElement("figure");
-    fig.classList.add("image", "is128x128")
+        let fig = document.createElement("figure");
+        fig.classList.add("image", "is128x128")
 
-    let img = document.createElement("img");
-    img.src = imageSrc;
+            let img = document.createElement("img");
+            img.src = imageSrc;
 
-    fig.appendChild(img);
+        fig.appendChild(img);
 
     col.appendChild(fig);
 
-
-    // let lastRow = imageCont.lastChild;
-    // lastRow.appendChild(gap);
-    // lastRow.appendChild(col);
     imageCont.appendChild(col);
 }
 
@@ -124,7 +120,7 @@ var handleSwap = function (s, u) {
         return;
     }
     console.debug("start: " + s + " to: " + u);
-    
+
     this.rearangeArray();
 
     this.reloadText();
@@ -132,17 +128,15 @@ var handleSwap = function (s, u) {
 
 var rearangeArray = function () {
     console.debug("Rearanging Array...")
-    this.item = this.array.splice(this.start,1)[0];
-    this.array.splice(this.update, 0 , this.item);
-    // console.debug("After Rearange: " + this.array);
+    this.item = this.array.splice(this.start, 1)[0];
+    this.array.splice(this.update, 0, this.item);
 }
 
 var reloadText = function () {
-    // console.debug("Reloading Text....");
+    console.debug("Reloading Text....");
     codeText.value = "";
-    // console.debug(this.array);
-    for(el in this.array){
-        // console.debug(this.array[el]);
+
+    for (el in this.array) {
         el = this.array[el];
         let entry = "![" + el.alt + "](" + el.url + " " + el.title + ")\n\n";
         codeText.value += entry;
@@ -150,6 +144,7 @@ var reloadText = function () {
 }
 
 var cleanDOM = function () {
+    console.debug("Cleaning Dom...");
     this.array = [];
     while (imageCont.firstChild) {
         imageCont.removeChild(imageCont.firstChild);
