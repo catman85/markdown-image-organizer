@@ -11,11 +11,11 @@ if (codeText.addEventListener) {
 $("#imgCont").sortable({
     start: function (event, ui) {
         this.start = ui.item.index()
-    },
-    update: function (event, ui) {
-        this.update = ui.item.index()
+        // console.debug("start: " + ui.item.index());
     },
     stop: function (event, ui) {
+        this.update = ui.item.index()
+        // console.debug("stop: "+ ui.item.index());
         handleSwap(this.start,this.update);
     }
 });

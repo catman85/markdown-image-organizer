@@ -114,6 +114,9 @@ var addImage = function (imageSrc) {
 }
 
 var handleSwap = function (s, u) {
+    if (s == u){
+        return;
+    }
     this.start = s;
     this.update = u;
     if (s === undefined || u === undefined) {
